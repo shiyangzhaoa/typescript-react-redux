@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store } from 'redux';
 import { Provider } from 'react-redux';
+import rootSaga from './sagas';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import StoreConfig from './store/index';
 
-const store: Store<any> = StoreConfig();
+const store = StoreConfig({isLoginPending: false});
+store.runSaga(rootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <App />

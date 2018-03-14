@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "./", // enables absolute path imports
+    "paths": { // define absolute path mappings
+      "@components/*": ["src/components/*"]
+    },
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es6",
