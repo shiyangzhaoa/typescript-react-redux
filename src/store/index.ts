@@ -5,13 +5,13 @@ import { enthusiasm } from '../reducers';
 const StoreConfig = (initialState: any) => {
   const sagaMiddleware = createSagaMiddleware();
 
-  const enhancer = window['devToolsExtension']
-    ? window['devToolsExtension']()(createStore)
-    : createStore;
-  const store = enhancer(
+  const store: any = createStore(
     enthusiasm,
     initialState,
-    compose(applyMiddleware(sagaMiddleware)),
+    compose(
+      applyMiddleware(sagaMiddleware),
+      window['devToolsExtension'] ? window['devToolsExtension']() : (f: any) => f,
+    ),
   );
   store.runSaga = sagaMiddleware.run;
   store.close = () => store.dispatch(END);

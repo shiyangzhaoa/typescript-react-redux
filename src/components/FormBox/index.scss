@@ -3,7 +3,7 @@
   justify-content: center;
   margin-top: 12px;
 
-  .btn-login {
+  .Button {
     width: 95px;
     height: 34px;
     display: -webkit-box;
@@ -11,7 +11,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #0084ff;
     border-color: #0084ff;
     padding: 0 16px;
     font-size: 14px;
@@ -26,6 +25,26 @@
     &:hover {
       background: #0084ff;
       color: white;
+    }
+  }
+
+  .btn-login {
+    color: #0084ff;
+
+    &:hover {
+      background: #0084ff;
+      color: white;
+    }
+  }
+
+  .btn-loginout {
+    margin-left: 20px;
+    color: white;
+    background: #0084ff;
+
+    &:hover {
+      background: white;
+      color: #0084ff;
     }
   }
 }

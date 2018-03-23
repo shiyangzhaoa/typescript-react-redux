@@ -1,6 +1,11 @@
 import { take, all, fork, select, call, put } from 'redux-saga/effects';
-import {  LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants';
+import {  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants';
 import { api } from '../services';
+
+interface Login {
+  loginname: string;
+  password:  string;
+}
 
 function* watchAndLog() {
   while (true) {
@@ -11,9 +16,9 @@ function* watchAndLog() {
   }
 }
 
-function* authorize(username: string, password: string) {
+function* authorize(loginname: string, password: string) {
   try {
-    const token = yield call(api.userLogin, { username, password });
+    const {token} = yield call(api.userLogin, { loginname, password });
     yield put({type: LOGIN_SUCCESS, isLoginPending: false, token });
     return token;
   } catch (error) {
@@ -23,9 +28,8 @@ function* authorize(username: string, password: string) {
 
 function* loginFlow() {
   while (true) {
-    const query = yield take('PERFORM_ACTION');
-    console.log(query);
-    authorize('test', 'test');
+    const {loginname, password} = (yield take(LOGIN_REQUEST)) as Login;
+    yield authorize(loginname, password);
   }
 }
 

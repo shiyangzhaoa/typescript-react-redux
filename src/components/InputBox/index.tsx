@@ -14,7 +14,7 @@ const InputBox = (props: Props) => {
         type="text"
         autoComplete="off"
         className="login-name"
-        placeholder="username"
+        placeholder="loginname"
         onChange={(evt: any) => props.getNameValue(evt.target.value)}
       />
       <input

@@ -9,23 +9,29 @@ import { StoreState } from '../types';
 import { user } from '../actions';
 import '../App.scss';
 
-export class Login extends React.Component<any, {}> {
+interface State {
+  loginname: string;
+  password:  string;
+  warning:   string;
+}
+
+export class Login extends React.Component<any, State> {
   state = {
-    username: '',
+    loginname: '',
     password: '',
     warning: '',
   };
 
-  getValueName = (username: string): void => {
-    this.setState({ username });
+  getValueName = (loginname: string): void => {
+    this.setState({ loginname });
   }
 
   getValuePass = (password: string): void => {
-    this.setState({ password: Md5.hashStr(password) });
+    this.setState({ password: Md5.hashStr(password).toString() });
   }
 
   check = (): boolean => {
-    if (!this.state.username || !this.state.password) {
+    if (!this.state.loginname || !this.state.password) {
       this.setState({
         warning: 'plz check your form~'
       });
@@ -46,7 +52,12 @@ export class Login extends React.Component<any, {}> {
       return;
     }
 
-    actions.request({ username: this.state.username, password: this.state.password });
+    actions.request({ loginname: this.state.loginname, password: this.state.password });
+  }
+
+  loginout = () => {
+    const { actions } = this.props;
+    actions.out();
   }
 
   render() {
@@ -60,7 +71,7 @@ export class Login extends React.Component<any, {}> {
             getPassValue={this.getValuePass}
           />
           {this.state.warning && <p style={{color: 'red'}}>{this.state.warning}</p>}
-          <FormBox login={this.login}/>
+          <FormBox login={this.login} isLoginPending={isLoginPending} loginout={this.loginout}/>
         </div>
       </div>
     );

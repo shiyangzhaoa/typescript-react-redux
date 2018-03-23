@@ -5,9 +5,11 @@ const API_ROOT = 'https://call-club.herokuapp.com/api/';
 function callApi(endpoint: string, schema: {}) {
   const fullUrl = (!endpoint.includes(API_ROOT)) ? API_ROOT + endpoint : endpoint;
 
-  return axios(fullUrl, schema)
+  return axios.post(fullUrl, schema)
     .then(({ data }) => data)
-    .catch((err: Error) => ({ error: err.message || 'Something bad happened' }));
+    .catch((err: Error) => {
+      throw new Error(err.message || 'Something bad happened');
+    });
 
 }
 

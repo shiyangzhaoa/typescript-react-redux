@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import rootSaga from './sagas';
-import './index.css';
+import './index.scss';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import StoreConfig from './store/index';
