@@ -22,6 +22,29 @@ export class Login extends React.Component<any, State> {
     warning: '',
   };
 
+  componentWillReceiveProps(nextProps: StoreState) {
+    const { isLoginPending } = this.props;
+    if (
+      nextProps.isLoginPending !== isLoginPending &&
+      nextProps.isLoginPending === false && 
+      nextProps.token
+    ) {
+      this.setState({
+        warning: '登陆成功~'
+      });
+      this.clearMsg();
+    } else if (
+      nextProps.isLoginPending !== isLoginPending &&
+      nextProps.isLoginPending === false && 
+      nextProps.error
+    ) {
+      this.setState({
+        warning: '登陆失败~'
+      });
+      this.clearMsg();
+    }
+  }
+
   getValueName = (loginname: string): void => {
     this.setState({ loginname });
   }
@@ -35,11 +58,7 @@ export class Login extends React.Component<any, State> {
       this.setState({
         warning: 'plz check your form~'
       });
-      setTimeout(() => {
-        this.setState({
-          warning: ''
-        });
-      }, 3000);
+      this.clearMsg();
       return false;
     } else {
       return true;
@@ -60,6 +79,14 @@ export class Login extends React.Component<any, State> {
     actions.out();
   }
 
+  public clearMsg = () => {
+    setTimeout(() => {
+      this.setState({
+        warning: ''
+      });
+    }, 3000);
+  }
+
   render() {
     const { isLoginPending } = this.props;
     return (
@@ -78,9 +105,11 @@ export class Login extends React.Component<any, State> {
   }
 }
 
-function mapStateToProps({ isLoginPending }: StoreState) {
+function mapStateToProps({ isLoginPending, token, error }: StoreState) {
   return {
     isLoginPending,
+    token,
+    error,
   };
 }
 
