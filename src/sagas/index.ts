@@ -25,7 +25,7 @@ function* authorize(loginname: string, password: string) {
     yield put({type: LOGIN_FAILURE, isLoginPending: false, error});
   } finally {
     if (yield cancelled()) {
-      console.log('%cwow, killed task!', 'color: red;');
+      console.log('%cwow, killed the task!', 'color: red;');
     }
   }
 }
